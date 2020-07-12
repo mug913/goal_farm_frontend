@@ -7,6 +7,6 @@ class User {
     }
 
     display(){
-        console.log(this)
+        console.log(`display=${this}`)
     }
 }

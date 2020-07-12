@@ -3,24 +3,22 @@ class GoalFarmApp {
     constructor(){
         this.call = new FetchCalls()
         this.elements()
-        this.user
     }
 
     elements() {
-        const App = this
-        this.loginPrompt = document.querySelector('.loginPrompt')
-        this.loginPrompt.addEventListener('submit', function(event) {
-            App.findUser(event)
-        })
+        this.loginPrompt = document.querySelector('.loginPrompt').addEventListener("t", console.log("hi")) 
     }
 
-    findUser(e){
-        e.preventDefault()
-        console.log(e)
-        let username = document.getElementById('username').value
-        this.matchResult(username)
+    findUser(event){
+        event.preventDefault();
+       // let username = document.getElementById('username').value
+        //this.matchResult(username)
+        
+        console.log(event)
         document.getElementById('loginPrompt').hidden=true;
-        console.log(this.user)
+         this.userTag = document.getElementById('userTag')
+         this.userTag.innerText = "this.user.username"
+        
     }
 
     matchResult(username) {
@@ -29,7 +27,7 @@ class GoalFarmApp {
         .then(json => {
             json.forEach(e => {
                 if (e.username == username){
-                   result = this.logIn(e.id)
+                  result = this.logIn(e.id)
                 }
             })
         })
@@ -38,8 +36,8 @@ class GoalFarmApp {
     logIn(id){
         this.call.logInUser(id)
         .then(json => {
-            let user = new User(json)
-            this.user = user
+            this.user = new User(json)
+            console.log(this)
         })
     }   
 }
