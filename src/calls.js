@@ -4,11 +4,13 @@ class FetchCalls {
     }
 
     getUserList(){
+        
         return fetch(`${this.url}/users`)
         .then(response => response.json())
     }
 
     logInUser(id){
+        
         return fetch(`${this.url}/users/${id}`)
         .then(response => response.json())
     }
