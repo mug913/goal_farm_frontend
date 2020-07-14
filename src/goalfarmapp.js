@@ -9,12 +9,22 @@ class GoalFarmApp {
         const App = this
         this.loginPrompt = document.querySelector('.loginPrompt')
         this.loginPrompt.addEventListener('submit', function(event) {
-            App.findUser(event)
+           if(event.target.className =="loginPrompt"){
+                console.log(event.target.className)
+                App.findUser(event)
+            }
+        })
+        this.regForm = document.querySelector('.regForm')
+        this.regForm.addEventListener('submit', function(event) {
+            if(event.target.className =="regForm"){
+                App.newUser(event)
+            }
         })
     }
 
     //find matching usernames Id number and hide form if successful
     async findUser(event){
+        console.log("yes")
         event.preventDefault()
         let username = document.getElementById('username').value
         
@@ -23,7 +33,8 @@ class GoalFarmApp {
             json.find(el => {
               if(el.username === username) {
                   this.logIn(el.id)
-                  document.getElementById('loginPrompt').hidden=true
+                  this.loginPrompt.hidden=true
+                  this.regForm.hidden=true
               }
             })
         })
@@ -36,5 +47,17 @@ class GoalFarmApp {
             this.user = new User(json)
         })
     }   
+
+    newUser(event) {
+        console.log(this)
+        event.preventDefault()
+        this.call.createUser()
+        .then(json => {
+            this.user = new User(json)
+        })
+    }
+
+
+
 
 }
