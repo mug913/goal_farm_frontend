@@ -24,10 +24,15 @@
         <input type='text' id='regusername'><br>
         <label form="email:">Email:</label>
         <input type='text' id='regemail'><br>
-        <label form="tz:">TimeZone:</label>
-        <input type='text' id='regtz'><br>
+       <!-- <label form="tz:">TimeZone:</label> -->
+       <!-- Value needed for database entry creation but functionality not yet implemented-->
+        <input type='hidden' id='regtz' value='1' ><br>
         <input type='submit' formaction='newUser()' value=register>
       </form>
+
+      <div id="profile">
+                
+      </div>
     </main>
 
     <script type="text/javascript" src="./src/index.js"></script>

@@ -10,7 +10,6 @@ class GoalFarmApp {
         this.loginPrompt = document.querySelector('.loginPrompt')
         this.loginPrompt.addEventListener('submit', function(event) {
            if(event.target.className =="loginPrompt"){
-                console.log(event.target.className)
                 App.findUser(event)
             }
         })
@@ -20,11 +19,11 @@ class GoalFarmApp {
                 App.newUser(event)
             }
         })
+        this.profile = document.getElementById('profile')
     }
 
     //find matching usernames Id number and hide form if successful
     async findUser(event){
-        console.log("yes")
         event.preventDefault()
         let username = document.getElementById('username').value
         
@@ -33,9 +32,7 @@ class GoalFarmApp {
             json.find(el => {
               if(el.username === username) {
                   this.logIn(el.id)
-                  this.loginPrompt.hidden=true
-                  this.regForm.hidden=true
-              }
+                }
             })
         })
     }
@@ -46,15 +43,32 @@ class GoalFarmApp {
         .then(json => {
             this.user = new User(json)
         })
+        this.logged_in()
     }   
 
-    newUser(event) {
-        console.log(this)
+    //create new user record and store info in API.
+    async newUser(event) {
         event.preventDefault()
-        this.call.createUser()
+        await this.call.createUser()
         .then(json => {
+            console.log("this",json.data)
             this.user = new User(json)
         })
+        this.logged_in()
+    }
+
+    logged_in() {
+        this.loginPrompt.hidden=true
+        this.regForm.hidden=true
+        this.profile.innerHTML=this.generate_profile()
+    }
+
+    generate_profile() {
+        let profile_string = ""
+        for (let i=0;i<3;i++){
+        profile_string += `<p> ${(Object.keys(this.user)[i])}: ${(Object.values(this.user)[i])} </p> <br>`
+        }
+        return profile_string
     }
 
 
