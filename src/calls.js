@@ -16,6 +16,7 @@ class FetchCalls {
     }
 
     createUser(){
+        
         return fetch(`${this.url}/users/`, {
             method: "POST",
             headers: {
@@ -27,11 +28,6 @@ class FetchCalls {
                 tz: event.target[2].value
             })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('User Not Registered')
-            }
-            response.json()
-        })
+        .then(response => response.json())
     }
 }

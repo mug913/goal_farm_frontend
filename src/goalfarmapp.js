@@ -51,7 +51,6 @@ class GoalFarmApp {
         event.preventDefault()
         await this.call.createUser()
         .then(json => {
-            console.log("this",json.data)
             this.user = new User(json)
         })
         this.logged_in()
