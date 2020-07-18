@@ -3,6 +3,10 @@ class GoalFarmApp {
         this.call = new FetchCalls()
         this.elements()
         this.goals = []
+<<<<<<< HEAD
+        this.images = images
+=======
+>>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
     }
     
     //selection of document elements for manipulation/event handling
@@ -68,13 +72,24 @@ class GoalFarmApp {
     generate_profile() {
         let profile_string = ""
         for (let i=0;i<3;i++){
+<<<<<<< HEAD
+        profile_string += `<p> ${(Object.keys(this.user)[i])}: ${(Object.values(this.user)[i])} </p> `
+=======
         profile_string += `<p> ${(Object.keys(this.user)[i])}: ${(Object.values(this.user)[i])} </p> <br>`
+>>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
         }
         return profile_string
     }
     //populate users goal objects
     buildGoals() {
         for (let e of this.user.goals){
+<<<<<<< HEAD
+            console.log(this.user.goals.length)
+            this.goals.push(new Goal(e))
+            this.goals[this.goals.length - 1].goalState()
+            }
+        }
+=======
             this.goals.push( new Goal(e))
             let ctx = this.canvas.getContext("2d")
             ctx.beginPath();
@@ -85,5 +100,6 @@ class GoalFarmApp {
 
 
 
+>>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
 
 }
