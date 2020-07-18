@@ -3,10 +3,7 @@ class GoalFarmApp {
         this.call = new FetchCalls()
         this.elements()
         this.goals = []
-<<<<<<< HEAD
         this.images = images
-=======
->>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
     }
     
     //selection of document elements for manipulation/event handling
@@ -67,39 +64,48 @@ class GoalFarmApp {
         this.regForm.hidden=true
         this.profile.innerHTML=this.generate_profile()
         this.buildGoals()
+        this.goalMap()
     }
     //create profile string to display
     generate_profile() {
         let profile_string = ""
         for (let i=0;i<3;i++){
-<<<<<<< HEAD
         profile_string += `<p> ${(Object.keys(this.user)[i])}: ${(Object.values(this.user)[i])} </p> `
-=======
-        profile_string += `<p> ${(Object.keys(this.user)[i])}: ${(Object.values(this.user)[i])} </p> <br>`
->>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
         }
         return profile_string
     }
     //populate users goal objects
     buildGoals() {
         for (let e of this.user.goals){
-<<<<<<< HEAD
             console.log(this.user.goals.length)
             this.goals.push(new Goal(e))
             this.goals[this.goals.length - 1].goalState()
             }
         }
-=======
-            this.goals.push( new Goal(e))
-            let ctx = this.canvas.getContext("2d")
-            ctx.beginPath();
-            ctx.arc(95,50,e.id*10,0,2 * Math.PI);
-            ctx.stroke();
+
+
+    goalMap() {
+        for (let i = 0; i<5; i ++){
+            let img = new Image();
+            if (this.goals[i]) {
+                switch(this.goals[i].status) {
+                    case 'dead': img.src = this.images[4]
+                    break;
+                    case 'late': img.src = this.images[3]
+                    break;
+                    case 'alive': 
+                    if (this.goals[i].level > 1) {img.src = this.images[2]}
+                    else img.src = this.images[1]
+                    break;
+                }
+            }
+            else img.src = this.images[0]   
+            let ctx = this.canvas.getContext('2d') 
+            img.onload = function() {
+                ctx.drawImage(img, i * 150, 200)
+            }
         }
     }
-
-
-
->>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
+    
 
 }
