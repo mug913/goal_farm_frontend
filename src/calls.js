@@ -16,7 +16,7 @@ class FetchCalls {
     }
 
     createUser(){
-        console.log(event.target[0].value)
+        
         return fetch(`${this.url}/users/`, {
             method: "POST",
             headers: {
