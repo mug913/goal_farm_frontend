@@ -23,6 +23,10 @@ class GoalFarmApp {
         })
         this.profile = document.getElementById('profile')
         this.canvas = document.getElementById('canvas')
+        //this.canvas.elements = []
+        //this.canvas.addEventListener('click', function(event) {
+        //      App.plotClick(event)
+        //   })
     }
 
     //find matching usernames Id number and hide form if successful
@@ -98,14 +102,47 @@ class GoalFarmApp {
                     else img.src = this.images[1]
                     break;
                 }
-            }
+                img.id = this.goals.id
+                img.class = 'goal'
+                        }
             else img.src = this.images[0]   
-            let ctx = this.canvas.getContext('2d') 
-            img.onload = function() {
-                ctx.drawImage(img, i * 150, 200)
-            }
+            img.id = 'create'
+            img.class = 'goal'
+            this.goals[i] ? img.title = `${this.goals[i].target}` : img.title = `Create Goal`
+            document.body.appendChild(img)
+          
+            //     let ctx = this.canvas.getContext('2d')
+        //     this.canvas.elements.push({
+        //         id: i,
+        //         x: i * 150,
+        //         y: 200
+        //     }) 
+        //     img.onload = function() {
+        //         ctx.drawImage(img, i * 150, 200)
+        //     }
         }
+
+        
     }
     
 
+//   //  plotClick(event) {
+//         let Bounds=this.canvas.getBoundingClientRect();
+//         let Boundx=Bounds.left
+//         let Boundy=Bounds.top
+//         let mousex = event.pageX-Boundx
+//         let mousey = event.pageY-Boundy
+//         switch(mousex, mousey) {
+//             case 'dead': img.src = this.images[4]
+//             break;
+//             case 'late': img.src = this.images[3]
+//             break;
+//             case 'alive': 
+//             if (this.goals[i].level > 1) {img.src = this.images[2]}
+//             else img.src = this.images[1]
+//             break;
+//         }
+//     }
+//         console.log(mousex, mousey)
+//     }
 }
