@@ -27,12 +27,18 @@
        <!-- <label form="tz:">TimeZone:</label> -->
        <!-- Value needed for database entry creation but functionality not yet implemented-->
         <input type='hidden' id='regtz' value='1' ><br>
-        <input type='submit' formaction='newUser()' value=register>
+        <input type='submit' value=register>
       </form>
-
       <div id="profile">
       </div>
 
+      <form class = 'newGoal' autocomplete='off' >
+        <p>Create Goal:</p>
+        <label form="target:">Target:</label>
+        <input type='text' id='target'><br>
+        <input type='hidden' id='level' value='1' ><br>
+        <input type='submit' value=Create>
+      </form>
       <!-- <canvas id="canvas" width="800" height="600" style="border:1px solid#000000"></canvas> -->
     </main>
 

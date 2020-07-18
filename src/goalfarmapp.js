@@ -9,6 +9,7 @@ class GoalFarmApp {
     //selection of document elements for manipulation/event handling
     elements() {
         const App = this
+        this.profile = document.getElementById('profile')
         this.loginPrompt = document.querySelector('.loginPrompt')
         this.loginPrompt.addEventListener('submit', function(event) {
            if(event.target.className =="loginPrompt"){
@@ -21,8 +22,14 @@ class GoalFarmApp {
                 App.newUser(event)
             }
         })
-        this.profile = document.getElementById('profile')
-        this.canvas = document.getElementById('canvas')
+        this.newGoal = document.querySelector('.newGoal')        
+        this.newGoal.addEventListener('submit', function(event) {
+            if(event.target.className =="newGoal"){
+                console.log('here')
+                App.newGoal(event)
+            }
+        })
+        //this.canvas = document.getElementById('canvas')
         //this.canvas.elements = []
         //this.canvas.addEventListener('click', function(event) {
         //      App.plotClick(event)
@@ -62,12 +69,13 @@ class GoalFarmApp {
         })
         this.logged_in()
     }
+
     //actions to take once user is logged in
     logged_in() {
         this.loginPrompt.hidden=true
         this.regForm.hidden=true
         this.profile.innerHTML=this.generate_profile()
-        this.buildGoals()
+        if (this.user.goals){this.buildGoals()}
         this.goalMap()
     }
     //create profile string to display
@@ -89,6 +97,7 @@ class GoalFarmApp {
 
 
     goalMap() {
+        const App = this
         for (let i = 0; i<5; i ++){
             let img = new Image();
             if (this.goals[i]) {
@@ -105,44 +114,36 @@ class GoalFarmApp {
                 img.id = this.goals.id
                 img.class = 'goal'
                         }
-            else img.src = this.images[0]   
+            else {img.src = this.images[0]   
             img.id = 'create'
-            img.class = 'goal'
+            img.class = 'goal'}
             this.goals[i] ? img.title = `${this.goals[i].target}` : img.title = `Create Goal`
+            img.addEventListener('click', function(event) {
+                if(event.target.id != 'create'){
+                    App.goalClick(event)
+                }
+                else 
+                    App.showGoalForm()
+            })
             document.body.appendChild(img)
-          
-            //     let ctx = this.canvas.getContext('2d')
-        //     this.canvas.elements.push({
-        //         id: i,
-        //         x: i * 150,
-        //         y: 200
-        //     }) 
-        //     img.onload = function() {
-        //         ctx.drawImage(img, i * 150, 200)
-        //     }
         }
 
-        
+   
+      
     }
     
+    showGoalForm() {
+        let goalForm = document.querySelector('.newGoal')
+        goalForm.style.display = 'block'
+    }
 
-//   //  plotClick(event) {
-//         let Bounds=this.canvas.getBoundingClientRect();
-//         let Boundx=Bounds.left
-//         let Boundy=Bounds.top
-//         let mousex = event.pageX-Boundx
-//         let mousey = event.pageY-Boundy
-//         switch(mousex, mousey) {
-//             case 'dead': img.src = this.images[4]
-//             break;
-//             case 'late': img.src = this.images[3]
-//             break;
-//             case 'alive': 
-//             if (this.goals[i].level > 1) {img.src = this.images[2]}
-//             else img.src = this.images[1]
-//             break;
-//         }
-//     }
-//         console.log(mousex, mousey)
-//     }
+    async newGoal(event) {
+        event.preventDefault()
+        await this.call.createGoal()
+        .then(json => {
+            this.goals.push(new Goal(json))
+        })
+        this.goalMap()
+    }
+
 }
