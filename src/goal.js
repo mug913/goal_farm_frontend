@@ -2,11 +2,16 @@ class Goal {
     constructor(data) {
         this.id = data.id
         this.target = data.target
+<<<<<<< HEAD
         this.last_click = data.last_click
+=======
+        this.list_click = data.last_click
+>>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
         this.level = data.level
         this.units = data.units
         this.created_at = data.created_at
     }
+<<<<<<< HEAD
 
     goalState() {
         let date = new Date()
@@ -32,4 +37,6 @@ class Goal {
         return result
     }
     
+=======
+>>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
 }
