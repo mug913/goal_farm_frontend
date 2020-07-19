@@ -27,17 +27,24 @@
        <!-- <label form="tz:">TimeZone:</label> -->
        <!-- Value needed for database entry creation but functionality not yet implemented-->
         <input type='hidden' id='regtz' value='1' ><br>
-        <input type='submit' formaction='newUser()' value=register>
+        <input type='submit' value=register>
       </form>
-
       <div id="profile">
       </div>
 
-<<<<<<< HEAD
-      <canvas id="canvas" width="800" height="600" style="border:1px solid#000000"></canvas>
-=======
-      <canvas id="canvas" width="200" height="100" style="border:1px solid#000000"></canvas>
->>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
+      <form class = 'newGoal' autocomplete='off' >
+        <p>Create Goal:</p>
+        <label form="target:">Target:</label>
+        <input type='text' id='target'><br>
+        <input type='hidden' id='level' value='1' ><br>
+        <input type='submit' value=Create>
+      </form>
+
+      <div id=plots>
+
+
+      </div>
+      <!-- <canvas id="canvas" width="800" height="600" style="border:1px solid#000000"></canvas> -->
     </main>
 
     <script type="text/javascript" src="./src/index.js"></script>
@@ -45,9 +52,6 @@
     <script type="text/javascript" src="./src/calls.js"></script>
     <script type="text/javascript" src="./src/user.js"></script>
     <script type="text/javascript" src="./src/goal.js"></script>
-<<<<<<< HEAD
     <script type="text/javascript" src="./src/images.js"></script>
-=======
->>>>>>> 2b9c900b43d3df4a3e43312886597dfbcb3c382a
   </body>
 </html>
