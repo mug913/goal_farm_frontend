@@ -52,11 +52,13 @@ class GoalFarmApp {
     
     //set create user object using found Id number
     async logIn(id){
+        this.goals = []
         await this.call.logInUser(id)
         .then(json => {
             this.user = new User(json)
         })
         this.logged_in()
+        
     }   
 
     //create new user record and store info in API.
@@ -73,8 +75,8 @@ class GoalFarmApp {
     logged_in() {
         this.loginPrompt.hidden=true
         this.regForm.hidden=true
-        this.profile.innerHTML=this.generate_profile()
         if (this.user.goals){this.buildGoals()}
+        this.profile.innerHTML=this.generate_profile()
         this.goalMap()
     }
     //create profile string to display
@@ -83,6 +85,7 @@ class GoalFarmApp {
         for (let i=0;i<3;i++){
         profile_string += `<p> ${(Object.keys(this.user)[i])}: ${(Object.values(this.user)[i])} </p> `
         }
+        if (this.goals){profile_string += `<p> Goal Count: ${this.goals.length} </p> `}
         return profile_string
     }
     //populate users goal objects
@@ -96,6 +99,8 @@ class GoalFarmApp {
 
     goalMap() {
         const App = this
+        let existingPlots = document.getElementById("plots")
+        existingPlots.innerHTML = ''
         for (let i = 0; i<5; i ++){
             let img = new Image();
             if (this.goals[i]) {
@@ -123,7 +128,7 @@ class GoalFarmApp {
                 else 
                     App.showGoalForm()
             })
-            this.map.push(img)
+            document.getElementById("plots").appendChild(img)
         }
       }
     
@@ -138,20 +143,12 @@ class GoalFarmApp {
     }
 
     async newGoal(event) {
-        console.log(event)
         event.preventDefault()
         await this.call.createGoal(this.user.id)
-        this.hideGoalForm()
-        this.clearImages()
-        this.logged_in()
+        .then(() => {
+            this.hideGoalForm()
+            this.logIn(this.user.id)})
     }
 
-    drawImages() {
-        
-        for (let i of this.map) {
-            document.body.appendChild(i)
-        }
-        
-    }
-
+   
 }
