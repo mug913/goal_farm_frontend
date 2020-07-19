@@ -30,4 +30,19 @@ class FetchCalls {
         })
         .then(response => response.json())
     }
+
+    createGoal(id){
+        
+        return fetch(`${this.url}/users/${id}/goals`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                target: event.target[0].value,
+                level: event.target[1].value,
+            })
+        })
+        .then(response => response.json())
+    }
 }

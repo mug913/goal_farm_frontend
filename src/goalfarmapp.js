@@ -22,10 +22,9 @@ class GoalFarmApp {
                 App.newUser(event)
             }
         })
-        this.newGoal = document.querySelector('.newGoal')        
-        this.newGoal.addEventListener('submit', function(event) {
+        this.newGoalForm = document.querySelector('.newGoal')        
+        this.newGoalForm.addEventListener('submit', function(event) {
             if(event.target.className =="newGoal"){
-                console.log('here')
                 App.newGoal(event)
             }
         })
@@ -89,7 +88,6 @@ class GoalFarmApp {
     //populate users goal objects
     buildGoals() {
         for (let e of this.user.goals){
-            console.log(this.user.goals.length)
             this.goals.push(new Goal(e))
             this.goals[this.goals.length - 1].goalState()
             }
@@ -125,25 +123,35 @@ class GoalFarmApp {
                 else 
                     App.showGoalForm()
             })
-            document.body.appendChild(img)
+            this.map.push(img)
         }
-
-   
-      
-    }
+      }
     
     showGoalForm() {
         let goalForm = document.querySelector('.newGoal')
         goalForm.style.display = 'block'
     }
 
+    hideGoalForm() {
+        let goalForm = document.querySelector('.newGoal')
+        goalForm.style.display = 'none'
+    }
+
     async newGoal(event) {
+        console.log(event)
         event.preventDefault()
-        await this.call.createGoal()
-        .then(json => {
-            this.goals.push(new Goal(json))
-        })
-        this.goalMap()
+        await this.call.createGoal(this.user.id)
+        this.hideGoalForm()
+        this.clearImages()
+        this.logged_in()
+    }
+
+    drawImages() {
+        
+        for (let i of this.map) {
+            document.body.appendChild(i)
+        }
+        
     }
 
 }

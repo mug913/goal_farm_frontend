@@ -19,7 +19,6 @@ class Goal {
         else if ((date.getDate() - this.formatDate(goalDate)[2]) == 1) {
             this.status = 'late';}
         else this.status = 'alive';
-        console.log(this.status)
     }
 
     formatDate(timeEntry) {
