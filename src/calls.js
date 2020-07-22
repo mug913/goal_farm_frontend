@@ -2,19 +2,19 @@ class FetchCalls {
     constructor() {
         this.url = "http://localhost:3000/api/v1"
     }
-
+    //get list of all users
     getUserList(){
         
         return fetch(`${this.url}/users`)
         .then(response => response.json())
     }
-
+    //get specified users login
     logInUser(id){
         
         return fetch(`${this.url}/users/${id}`)
         .then(response => response.json())
     }
-
+    //create new user record
     createUser(){
         
         return fetch(`${this.url}/users/`, {
@@ -30,7 +30,7 @@ class FetchCalls {
         })
         .then(response => response.json())
     }
-
+    //create new goal record
     createGoal(id){
         
         return fetch(`${this.url}/users/${id}/goals`, {
@@ -45,7 +45,7 @@ class FetchCalls {
         })
         .then(response => response.json())
     }
-
+    //update specified goal record
     updateGoal(user_id, id){
         let date = new Date()
         //let jDate = JSON.stringify(date)

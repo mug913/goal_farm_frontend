@@ -7,7 +7,5 @@ class User {
         this.id = data.id
     }
 
-    display(){
-        console.log(`display=${this}`)
-    }
+    
 }

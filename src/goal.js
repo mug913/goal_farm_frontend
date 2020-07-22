@@ -7,7 +7,7 @@ class Goal {
         this.units = data.units
         this.created_at = data.created_at
     }
-
+    //set goal state dependent on current time / last time clicked
     goalState() {
         let date = new Date()
         let goalDate
@@ -20,7 +20,7 @@ class Goal {
             this.status = 'late';}
         else this.status = 'alive';
     }
-
+    //format date for comparison
     formatDate(timeEntry) {
         console.log(timeEntry)
         let data = timeEntry.split("")
