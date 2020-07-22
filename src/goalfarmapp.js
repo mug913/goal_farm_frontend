@@ -57,7 +57,9 @@ class GoalFarmApp {
         .then(json => {
             this.user = new User(json)
         })
-        this.logged_in()
+        if(!!this.user.id){
+            this.logged_in()
+        }
         
     }   
 
@@ -68,7 +70,9 @@ class GoalFarmApp {
         .then(json => {
             this.user = new User(json)
         })
-        this.logged_in()
+        if(!!this.user.id){
+           this.logged_in()
+        }
     }
 
     //actions to take once user is logged in
@@ -96,7 +100,7 @@ class GoalFarmApp {
             }
         }
 
-
+    //create goal linked images and display them on the page
     goalMap() {
         const App = this
         let existingPlots = document.getElementById("plots")
@@ -131,17 +135,17 @@ class GoalFarmApp {
             document.getElementById("plots").appendChild(img)
         }
       }
-    
+    //display the create goal form
     showGoalForm() {
         let goalForm = document.querySelector('.newGoal')
         goalForm.style.display = 'block'
     }
-
+    //hide the create goal form
     hideGoalForm() {
         let goalForm = document.querySelector('.newGoal')
         goalForm.style.display = 'none'
     }
-
+    //create a goal record on the backend
     async newGoal(event) {
         event.preventDefault()
         await this.call.createGoal(this.user.id)
@@ -149,7 +153,7 @@ class GoalFarmApp {
             this.hideGoalForm()
             this.logIn(this.user.id)})
     }
-
+    //update the goal record on the back end with last time clicked
     async goalClick(id) {
         console.log(id)
         let gId = id
