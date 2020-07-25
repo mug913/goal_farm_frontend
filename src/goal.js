@@ -11,7 +11,7 @@ class Goal {
     goalState() {
         let date = new Date()
         let goalDate
-        (this.last_click) ? goalDate = this.last_click.toString : goalDate = this.created_at.toString()
+        (this.last_click) ? goalDate = this.last_click : goalDate = this.created_at
         if ((this.formatDate(goalDate)[0] < date.getFullYear()) || (this.formatDate(goalDate)[1] < date.getMonth())) {
             this.status = 'dead'}
         else if ((date.getDate() - this.formatDate(goalDate)[2]) > 1) {
@@ -22,6 +22,7 @@ class Goal {
     }
 
     formatDate(timeEntry) {
+        console.log(timeEntry)
         let data = timeEntry.split("")
         let result = [
         parseInt(data.slice(0,4).join("")),

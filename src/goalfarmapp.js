@@ -114,7 +114,7 @@ class GoalFarmApp {
                     else img.src = this.images[1]
                     break;
                 }
-                img.id = this.goals.id
+                img.id = this.goals[i].id
                 img.class = 'goal'
                         }
             else {img.src = this.images[0]   
@@ -123,7 +123,7 @@ class GoalFarmApp {
             this.goals[i] ? img.title = `${this.goals[i].target}` : img.title = `Create Goal`
             img.addEventListener('click', function(event) {
                 if(event.target.id != 'create'){
-                    App.goalClick(event)
+                    App.goalClick(event.target.id)
                 }
                 else 
                     App.showGoalForm()
@@ -147,6 +147,15 @@ class GoalFarmApp {
         await this.call.createGoal(this.user.id)
         .then(() => {
             this.hideGoalForm()
+            this.logIn(this.user.id)})
+    }
+
+    async goalClick(id) {
+        console.log(id)
+        let gId = id
+        event.preventDefault()
+        await this.call.updateGoal(this.user.id, gId)
+        .then(() => {
             this.logIn(this.user.id)})
     }
 

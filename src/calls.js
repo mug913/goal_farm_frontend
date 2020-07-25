@@ -45,4 +45,19 @@ class FetchCalls {
         })
         .then(response => response.json())
     }
+
+    updateGoal(user_id, id){
+        let date = new Date()
+        //let jDate = JSON.stringify(date)
+        return fetch(`${this.url}/users/${user_id}/goals/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                last_click: date
+                })
+        })
+        .then(response => response.json())
+    }
 }
