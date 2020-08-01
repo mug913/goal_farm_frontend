@@ -4,6 +4,7 @@ class Goal {
         this.target = data.target
         this.last_click = data.last_click
         this.level = data.level
+        this.goal_slot = parseInt(data.goal_slot)
         this.units = data.units
         this.created_at = data.created_at
     }
@@ -22,7 +23,6 @@ class Goal {
     }
     //format date for comparison
     formatDate(timeEntry) {
-        console.log(timeEntry)
         let data = timeEntry.split("")
         let result = [
         parseInt(data.slice(0,4).join("")),

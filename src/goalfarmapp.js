@@ -103,41 +103,55 @@ class GoalFarmApp {
     //create goal linked images and display them on the page
     goalMap() {
         const App = this
+        let goalArray = []
         let existingPlots = document.getElementById("plots")
         existingPlots.innerHTML = ''
+        //preload goalArray with empty goals
         for (let i = 0; i<5; i ++){
             let img = new Image();
-            if (this.goals[i]) {
-                switch(this.goals[i].status) {
-                    case 'dead': img.src = this.images[4]
-                    break;
-                    case 'late': img.src = this.images[3]
-                    break;
-                    case 'alive': 
-                    if (this.goals[i].level > 1) {img.src = this.images[2]}
-                    else img.src = this.images[1]
-                    break;
-                }
-                img.id = this.goals[i].id
-                img.class = 'goal'
-                        }
-            else {img.src = this.images[0]   
+            img.src = this.images[0]   
             img.id = 'create'
-            img.class = 'goal'}
-            this.goals[i] ? img.title = `${this.goals[i].target}` : img.title = `Create Goal`
+            img.class = 'goal'
+            img.slot = i
+            img.title = `Create Goal`
+            goalArray.push(img)
+            }
+        //if the user goal exsists select image based of status and load into goals array in the matching location
+        for (let e of this.goals){
+            console.log(e)
+        let img = new Image();
+            switch(e.status) {
+                case 'dead': img.src = this.images[4]
+                break;
+                case 'late': img.src = this.images[3]
+                break;
+                case 'alive': 
+                if (e.level > 1) {img.src = this.images[2]}
+                else img.src = this.images[1]
+                break;
+                }
+            img.id = e.id
+            img.class = 'goal'
+            img.title = `${e.target}`
+            goalArray.splice(e.goal_slot - 1, 1, img)
+            }
+        for (let i = 0; i < goalArray.length; i++){
+            let img = goalArray[i]
             img.addEventListener('click', function(event) {
                 if(event.target.id != 'create'){
                     App.goalClick(event.target.id)
                 }
                 else 
-                    App.showGoalForm()
+                    App.showGoalForm(parseInt(event.target.slot))
             })
-            document.getElementById("plots").appendChild(img)
+            document.getElementById("plots").appendChild(goalArray[i])
         }
-      }
+    }
+
     //display the create goal form
-    showGoalForm() {
+    showGoalForm(slot) {
         let goalForm = document.querySelector('.newGoal')
+        document.getElementById("goal_slot").value = slot +1
         goalForm.style.display = 'block'
     }
     //hide the create goal form
@@ -155,7 +169,6 @@ class GoalFarmApp {
     }
     //update the goal record on the back end with last time clicked
     async goalClick(id) {
-        console.log(id)
         let gId = id
         event.preventDefault()
         await this.call.updateGoal(this.user.id, gId)

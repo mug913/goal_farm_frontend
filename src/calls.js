@@ -41,6 +41,7 @@ class FetchCalls {
             body: JSON.stringify({
                 target: event.target[0].value,
                 level: event.target[1].value,
+                goal_slot: event.target[2].value
             })
         })
         .then(response => response.json())
